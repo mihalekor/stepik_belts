@@ -55,7 +55,7 @@ vector<string> PalindromFilter(vector<string> words, int minLength)
   return result;
 }
 
-int main()
+int main_PalindromFilter()
 {
   vector<string> result{"abacaba",  "aba",      "weeew",    "jj",       ";;;oijij", ";;;oijij",
                         ";;;oijij", ";;;oijij", ";;;oijij", ";;;oijij", ";;;oijij", ";;;oijij"};
@@ -63,4 +63,79 @@ int main()
   for (auto w : PalindromFilter(result, 1))
     cout << w << endl;
   return 0;
+}
+
+/*Задание по программированию «Максимизатор». Напишите функцию UpdateIfGreater, которая принимает два целочисленных
+   аргумента: first и second. Если first оказался больше second, Ваша функция должна записывать в second значение
+   параметра first. При этом указанная функция не должна ничего возвращать, а изменение параметра second должно быть
+   видно на вызывающей стороне.
+*/
+void UpdateIfGreater(int first, int &second)
+{
+  if (first > second)
+    second = first;
+}
+
+/*Задание по программированию «Перемещение строк»
+Напишите функцию MoveStrings, которая принимает два вектора строк, source и destination, и дописывает все строки из
+первого вектора в конец второго. После выполнения функции вектор source должен оказаться пустым. Чтобы очистить
+содержимое вектора, надо вызвать у него метод clear:*/
+void MoveStrings(vector<string> &source, vector<string> &destination)
+{
+  for (auto s : source)
+    destination.push_back(s);
+  source.clear();
+}
+
+int main_MoveStrings()
+{
+  vector<string> source = {"123", "345"};
+  vector<string> destination = {""};
+
+  MoveStrings(source, destination);
+
+  for (auto d : destination)
+  {
+    cout << d << " " << endl;
+  }
+
+  return 0;
+}
+
+/*Задание по программированию «Разворот последовательности» Реализуйте функцию void Reverse(vector<int>& v), которая
+ * переставляет элементы вектора в обратном порядке.*/
+
+void Reverse(vector<int> &v)
+{
+  for (size_t beg = 0, end = v.size() - 1; beg < v.size() / 2; ++beg, --end)
+  {
+    int temp = v[beg];
+    v[beg] = v[end];
+    v[end] = temp;
+  }
+}
+
+/*Задание по программированию «Разворот последовательности 2»
+ * Реализуйте функцию vector<int> Reversed(const vector<int>& * v), возвращающую копию вектора v, в которой числа
+ * переставлены в обратном порядке.*/
+vector<int> Reversed(const vector<int> &v)
+{
+  vector<int> result = v;
+  for (size_t beg = 0, end = result.size() - 1; beg < result.size() / 2; ++beg, --end)
+  {
+    int temp = result[beg];
+    result[beg] = result[end];
+    result[end] = temp;
+  }
+  return result;
+}
+
+int main()
+{
+  vector<int> vvv = {1, 2};
+  Reversed(vvv);
+  for (auto d : vvv)
+  {
+    cout << d << " ";
+  }
 }
