@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
 
@@ -91,7 +92,7 @@ int main()
 {
   int n, sum = 0, num = 0; //кол-во элем, сумма все элем, среднее знач
   cin >> n;
-  vector<bool> queue;
+  vector<bool> is_nervous;
   string cmd_s;
 
   for (int i = 0; i < n; ++i)
@@ -99,25 +100,16 @@ int main()
     cin >> cmd_s;
     if (cmd_s == "WORRY_COUNT")
     {
-      sum = 0;
-      for (auto q : queue)
-        if (q)
-          ++sum;
-      cout << sum << endl;
+      // подсчитываем количество элементов в векторе is_nervous, равных true
+      cout << count(begin(is_nervous), end(is_nervous), true) << endl;
     }
     else
       cin >> num;
 
-    if (cmd_s == "WORRY")
-      queue[num] = true;
-    else if (cmd_s == "QUIET")
-      queue[num] = false;
+    if (cmd_s == "WORRY" || cmd_s == "QUIET")
+      is_nervous[num] = cmd_s == "WORRY";
     else if (cmd_s == "COME")
-      for (int k = 0; k < (num < 0 ? num * -1 : num); ++k)
-        if (num > 0)
-          queue.push_back(false);
-        else
-          queue.pop_back();
+      is_nervous.resize(is_nervous.size() + num, false);
   }
 
   return 0;
