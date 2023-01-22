@@ -158,36 +158,52 @@ int main()
   int n, n_day = 0;
   string s_deal, cmd_s;
   cin >> n;
-  int index_m = 0;
-  vector<int> monthes = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-  vector<vector<string>> deals(monthes[index_m]);
-
+  int current_m = 0, next_m = 1;
+  vector<int> months = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+  vector<vector<string>> deals(months[current_m]);
+  // int month_now=monthes[current_m];
   for (int i = 0; i < n; ++i)
   {
     cin >> cmd_s;
     if (cmd_s == "NEXT")
     {
-      if (monthes[index_m] > monthes[index_m + 1])
+
+      if (months[current_m] > months[current_m + 1])
       {
-        deals.resize(monthes[index_m + 1]);
+        int count_day = months[current_m] - months[next_m];
+        for (int k = 0; k < count_day; ++k)
+          deals[months[next_m] - 1].insert(end(deals[months[next_m] - 1]), begin(deals[months[next_m] + k]),
+                                           end(deals[months[next_m] + k]));
       }
-      else
-      {
-        // monthes[index_m + 1].insert(end(v1), begin(v2), end(v2));
-      }
+      deals.resize(months[next_m]);
+
+      ++current_m;
+      ++next_m;
+      if (current_m == 12)
+        current_m = 0;
+      if (next_m == 12)
+        next_m = 0;
     }
     else if (cmd_s == "ADD")
     {
       cin >> n_day;
       cin >> s_deal;
-      deals[n_day].push_back(s_deal);
+      deals[n_day - 1].push_back(s_deal);
     }
     else if (cmd_s == "DUMP")
     {
       cin >> n_day;
-      for (auto ds : deals[n_day])
-        for (auto s : ds)
-          cout << s;
+      if (!deals[n_day - 1].empty())
+      {
+        cout << deals[n_day - 1].size() << " ";
+
+        for (auto ds : deals[n_day - 1])
+          cout << ds << " ";
+
+        cout << endl;
+      }
+      else
+        cout << 0 << endl;
     }
   }
 
