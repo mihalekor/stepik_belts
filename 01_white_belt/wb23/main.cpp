@@ -152,58 +152,59 @@ NEXT
 выведите количество дел в соответствующий день, а затем их названия, разделяя их пробелом. Порядок вывода дел в рамках
 каждой операции значения не имеет.
 */
+
+// глобальные (доступные во всей программе) константы
+// часто принято называть ЗАГЛАВНЫМИ_БУКВАМИ
+const vector<int> MONTH_LENGTHS = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+const int MONTH_COUNT = MONTH_LENGTHS.size();
+
 int main()
 {
 
-  int n, n_day = 0;
-  string s_deal, cmd_s;
+  int n; //ввод команды, ввод дела
   cin >> n;
-  int current_m = 0, next_m = 1;
-  vector<int> months = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-  vector<vector<string>> deals(months[current_m]);
+
+  // номер текущего месяца (от 0 до 11)
+  int month = 0;
+
+  vector<vector<string>> deals(MONTH_LENGTHS[month]);
   // int month_now=monthes[current_m];
   for (int i = 0; i < n; ++i)
   {
-    cin >> cmd_s;
-    if (cmd_s == "NEXT")
+    string in_cmd;
+    cin >> in_cmd;
+    if (in_cmd == "NEXT")
     {
-
-      if (months[current_m] > months[current_m + 1])
+      int current_m, next_m;
+      current_m = MONTH_LENGTHS[month];
+      month = ++month % MONTH_COUNT;
+      next_m = MONTH_LENGTHS[month];
+      if (current_m > next_m)
       {
-        int count_day = months[current_m] - months[next_m];
+        int count_day = current_m - next_m;
         for (int k = 0; k < count_day; ++k)
-          deals[months[next_m] - 1].insert(end(deals[months[next_m] - 1]), begin(deals[months[next_m] + k]),
-                                           end(deals[months[next_m] + k]));
+          deals[next_m - 1].insert(end(deals[next_m - 1]), begin(deals[next_m + k]), end(deals[next_m + k]));
       }
-      deals.resize(months[next_m]);
-
-      ++current_m;
-      ++next_m;
-      if (current_m == 12)
-        current_m = 0;
-      if (next_m == 12)
-        next_m = 0;
+      deals.resize(next_m);
     }
-    else if (cmd_s == "ADD")
+    else if (in_cmd == "ADD")
     {
-      cin >> n_day;
-      cin >> s_deal;
-      deals[n_day - 1].push_back(s_deal);
+      int in_day;
+      string in_deal;
+      cin >> in_day;
+      cin >> in_deal;
+      deals[in_day - 1].push_back(in_deal);
     }
-    else if (cmd_s == "DUMP")
+    else if (in_cmd == "DUMP")
     {
-      cin >> n_day;
-      if (!deals[n_day - 1].empty())
-      {
-        cout << deals[n_day - 1].size() << " ";
+      int in_day;
+      cin >> in_day;
+      cout << deals[in_day - 1].size() << " ";
 
-        for (auto ds : deals[n_day - 1])
-          cout << ds << " ";
+      for (auto ds : deals[in_day - 1])
+        cout << ds << " ";
 
-        cout << endl;
-      }
-      else
-        cout << 0 << endl;
+      cout << endl;
     }
   }
 
