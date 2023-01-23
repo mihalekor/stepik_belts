@@ -181,9 +181,9 @@ int main()
       next_m = MONTH_LENGTHS[month];
       if (current_m > next_m)
       {
-        int count_day = current_m - next_m;
-        for (int k = 0; k < count_day; ++k)
-          deals[next_m - 1].insert(end(deals[next_m - 1]), begin(deals[next_m + k]), end(deals[next_m + k]));
+        vector<string> &last_day = deals[next_m - 1];
+        for (int k = next_m; k < current_m; ++k)
+          last_day.insert(end(last_day), begin(deals[k]), end(deals[k]));
       }
       deals.resize(next_m);
     }
