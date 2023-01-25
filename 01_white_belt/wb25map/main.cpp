@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#include <string>
 #include <vector>
 
 using namespace std;
@@ -62,7 +63,7 @@ int main_exemple()
 Выведите N строк: для каждой введённой пары слов YES, если эти слова являются анаграммами, и NO в противном случае.
 https://stepik.org/lesson/283171/step/8?auth=login&unit=264475
 */
-int main()
+int main_anagrama()
 {
   int n;
   cin >> n;
@@ -81,6 +82,258 @@ int main()
       cout << "YES" << endl;
     else
       cout << "NO" << endl;
+  }
+  return 0;
+}
+
+/*2.5 - 2:Задание по программированию «Справочник столиц»
+Реализуйте справочник столиц стран.
+
+На вход программе поступают следующие запросы:
+
+CHANGE_CAPITAL country new_capital — изменение столицы страны country на new_capital, либо добавление такой страны с
+такой столицей, если раньше её не было.
+
+RENAME old_country_name new_country_name — переименование страны из old_country_name в new_country_name.
+
+ABOUT country — вывод столицы страны country.
+
+DUMP — вывод столиц всех стран.
+
+Формат ввода
+В первой строке содержится количество запросов Q, в следующих Q строках — описания запросов. Все названия стран и столиц
+состоят лишь из латинских букв, цифр и символов подчёркивания.
+
+Формат вывода
+Выведите результат обработки каждого запроса:
+
+В ответ на запрос CHANGE_CAPITAL country new_capital выведите
+Introduce new country country with capital new_capital, если страны country раньше не существовало;
+
+Country country hasn't changed its capital, если страна country до текущего момента имела столицу new_capital;
+
+Country country has changed its capital from old_capital to new_capital, если страна country до текущего момента имела
+столицу old_capital, название которой не совпадает с названием new_capital.
+
+В ответ на запрос RENAME old_country_name new_country_name выведите
+Incorrect rename, skip, если новое название страны совпадает со старым, страна old_country_name не существует или страна
+new_country_name уже существует;
+
+Country old_country_name with capital capital has been renamed to new_country_name, если запрос корректен и страна имеет
+столицу capital.
+
+В ответ на запрос ABOUT country выведите
+Country country doesn't exist, если страны с названием country не существует;
+
+Country country has capital capital, если страна country существует и имеет столицу capital.
+
+В ответ на запрос DUMP выведите
+There are no countries in the world, если пока не было добавлено ни одной страны;
+
+последовательность пар вида country/capital, описывающую столицы всех стран, если в мире уже есть хотя бы одна страна.
+При выводе последовательности пары указанного вида необходимо упорядочить по названию страны и разделять между собой
+пробелом.*/
+
+int main_country_capital()
+{
+  int n, sum = 0, num = 0; //кол-во элем, сумма все элем, среднее знач
+  cin >> n;
+  map<string, string> map1;
+
+  for (int i = 0; i < n; ++i)
+  {
+    string cmd_s;
+    cin >> cmd_s;
+
+    if (cmd_s == "CHANGE_CAPITAL")
+    {
+      string country, new_capital;
+      cin >> country >> new_capital;
+
+      if (map1.count(country) == 0)
+      {
+        cout << "Introduce new country " << country << " with capital " << new_capital << endl;
+        map1[country] = new_capital;
+      }
+      else
+      {
+        if (map1[country] == new_capital)
+          cout << "Country " << country << " hasn't changed its capital" << endl;
+        else
+        {
+          cout << "Country " << country << " has changed its capital from " << map1[country] << " to " << new_capital
+               << endl;
+          map1[country] = new_capital;
+        }
+      }
+
+      map1[country] = new_capital;
+    }
+    else if (cmd_s == "RENAME")
+    {
+      string old_country_name, new_country_name;
+      cin >> old_country_name >> new_country_name;
+      if (new_country_name == old_country_name || map1.count(old_country_name) == 0 ||
+          map1.count(new_country_name) == 1)
+        cout << "Incorrect rename, skip" << endl;
+      else
+      {
+        string temp_capital = map1[old_country_name];
+        if (!temp_capital.empty())
+        {
+          map1.erase(old_country_name);
+          map1[new_country_name] = temp_capital;
+          cout << "Country " << old_country_name << " with capital " << temp_capital << " has been renamed to "
+               << new_country_name << endl;
+        }
+      }
+    }
+    else if (cmd_s == "ABOUT")
+    {
+      string country;
+      cin >> country;
+      if (map1.count(country) == 0)
+        cout << "Country " << country << " doesn't exist" << endl;
+      else
+        cout << "Country " << country << " has capital " << map1[country] << endl;
+    }
+    else if (cmd_s == "DUMP")
+    {
+      if (!map1.empty())
+      {
+        // country/capital
+        for (const auto &m : map1)
+          cout << m.first << "/" << m.second << " ";
+      }
+      else
+      {
+        cout << "There are no countries in the world";
+      }
+      cout << endl;
+    }
+  }
+  return 0;
+}
+
+/*Задание по программированию «Автобусные остановки — 1»
+
+
+Реализуйте систему хранения автобусных маршрутов. Вам нужно обрабатывать следующие запросы:
+
+NEW_BUS bus stop_count stop1 stop2 ... — добавить маршрут автобуса с названием bus и stop_countостановками с названиями
+stop1, stop2, ...
+
+BUSES_FOR_STOP stop — вывести названия всех маршрутов автобуса, проходящих через остановку stop.
+
+STOPS_FOR_BUS bus — вывести названия всех остановок маршрута bus со списком автобусов, на которые можно пересесть на
+каждой из остановок.
+
+ALL_BUSES — вывести список всех маршрутов с остановками.
+
+Формат ввода
+В первой строке ввода содержится количество запросов Q, затем в Q строках следуют описания запросов.
+
+Гарантируется, что все названия маршрутов и остановок состоят лишь из латинских букв, цифр и знаков подчёркивания.
+
+Для каждого запроса NEW_BUS bus stop_count stop1 stop2 ... гарантируется, что маршрут bus отсутствует, количество
+остановок больше 0, а после числа stop_count следует именно такое количество названий остановок, причём все названия в
+каждом списке различны.
+
+Формат вывода
+Для каждого запроса, кроме NEW_BUS, выведите соответствующий ответ на него:
+
+На запрос BUSES_FOR_STOP stop выведите через пробел список автобусов, проезжающих через эту остановку, в том порядке, в
+котором они создавались командами NEW_BUS. Если остановка stop не существует, выведите No stop.
+
+На запрос STOPS_FOR_BUS bus выведите описания остановок маршрута bus в отдельных строках в том порядке, в котором они
+были заданы в соответствующей команде NEW_BUS. Описание каждой остановки stop должно иметь вид Stop stop: bus1 bus2 ...,
+где bus1 bus2 ... — список автобусов, проезжающих через остановку stop, в порядке, в котором они создавались командами
+NEW_BUS, за исключением исходного маршрута bus. Если через остановку stop не проезжает ни один автобус, кроме bus,
+вместо списка автобусов для неё выведите no interchange. Если маршрут bus не существует, выведите No bus.
+
+На запрос ALL_BUSES выведите описания всех автобусов в алфавитном порядке. Описание каждого маршрута bus должно иметь
+вид Bus bus: stop1 stop2 ..., где stop1 stop2 ... — список остановок автобуса bus в порядке, в котором они были заданы в
+соответствующей команде NEW_BUS. Если автобусы отсутствуют, выведите No buses.
+
+Предупреждение
+Условие задачи выше содержит много важных деталей. Если вы не уверены в том, что не упустили ни одной, перечитайте
+условие ещё раз.*/
+
+int main()
+{
+  int n, sum = 0, num = 0; //кол-во элем, сумма все элем, среднее знач
+  cin >> n;
+  map<string, vector<string>> bus_stop, stop_bus;
+
+  for (int i = 0; i < n; ++i)
+  {
+    string cmd_s;
+    cin >> cmd_s;
+
+    if (cmd_s == "NEW_BUS")
+    {
+      string bus, stop;
+      cin >> bus;
+      int count;
+      cin >> count;
+      for (int var = 0; var < count; ++var)
+      {
+        cin >> stop;
+        bus_stop[bus].push_back(stop);
+        stop_bus[stop].push_back(bus);
+      }
+    }
+    else if (cmd_s == "BUSES_FOR_STOP")
+    {
+      string stop;
+      cin >> stop;
+      if (stop_bus.count(stop))
+        for (auto b : stop_bus[stop])
+          cout << b << " ";
+      else
+        cout << "No stop";
+      cout << endl;
+    }
+    else if (cmd_s == "STOPS_FOR_BUS")
+    {
+      string bus;
+      cin >> bus;
+
+      if (bus_stop.count(bus))
+      {
+        for (auto s : bus_stop[bus])
+        {
+          cout << "Stop " << s << ": ";
+          if (stop_bus[s].size() > 1)
+          {
+            for (auto b : stop_bus[s])
+            {
+              if (b == bus)
+                continue;
+              cout << b << " ";
+            }
+            cout << endl;
+          }
+          else
+            cout << "no interchange" << endl;
+        }
+      }
+      else
+        cout << "No bus" << endl;
+    }
+    else if (cmd_s == "ALL_BUSES")
+    {
+      if (!bus_stop.empty())
+        for (auto b : bus_stop)
+        {
+          cout << "Bus " << b.first << ": ";
+          for (auto s : b.second)
+            cout << s << " ";
+          cout << endl;
+        }
+      else
+        cout << "No buses" << endl;
+    }
   }
   return 0;
 }
