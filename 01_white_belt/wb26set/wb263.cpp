@@ -34,12 +34,65 @@ https://stepik.org/lesson/283172/step/9?auth=login&unit=264476
 #include <map>
 #include <set>
 using namespace std;
+/*
+ *
+ *
+8
+ADD program code
+COUNT cipher
+ADD code cipher
+COUNT code
+COUNT program
+CHECK code program
+CHECK program cipher
+CHECK cpp java
 
-int main_263() //_263
+0
+2
+1
+YES
+NO
+NO
+--------------------
+8
+CHECK code program
+ADD program code
+ADD code cipher
+CHECK program cipher
+CHECK cpp java
+COUNT cipher
+COUNT code
+COUNT program
+
+NO
+NO
+NO
+1
+2
+1
+-----------------
+8
+ADD cipher code
+ADD code program
+ADD program code
+CHECK code program
+CHECK program code
+CHECK cpp java
+CHECK cipher program
+CHECK program cipher
+
+YES
+YES
+NO
+NO
+NO
+
+*/
+int main() //_263
 {
   int n;
   cin >> n;
-  map<string, string> map_str;
+  map<string, set<string>> map_str;
   for (int t = 0; t < n; ++t)
   {
     string cmd_str;
@@ -48,33 +101,23 @@ int main_263() //_263
     {
       string word1, word2;
       cin >> word1 >> word2;
-      map_str[word1] = word2;
+      map_str[word1].insert(word2);
+      map_str[word2].insert(word1);
     }
     else if (cmd_str == "COUNT")
     {
       string word;
       cin >> word;
-      int count = 0;
-      if (map_str.count(word))
-      {
-        ++count;
-        for (auto m : map_str)
-          if (m.second == word)
-            ++count;
-      }
-      cout << count << endl;
+      cout << map_str[word].size() << endl;
     }
     else if (cmd_str == "CHECK")
     {
-      string word1, word2, out = "NO";
+      string word1, word2;
       cin >> word1 >> word2;
-      for (auto m : map_str)
-        if (m.first == word1 && m.second == word2 || m.first == word2 && m.second == word1)
-        {
-          out = "YES";
-          break;
-        }
-      cout << out << endl;
+      if (map_str[word1].count(word2))
+        cout << "YES" << endl;
+      else
+        cout << "NO" << endl;
     }
   }
   // cout << set_str.size() << endl;
