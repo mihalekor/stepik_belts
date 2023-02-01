@@ -88,7 +88,7 @@ NO
 NO
 
 */
-int main() //_263
+int main263() //_263
 {
   int n;
   cin >> n;

@@ -2,6 +2,7 @@
 #include "wb261_uniq_str.cpp"
 #include "wb262.cpp"
 #include "wb263.cpp"
+#include "wb264.cpp"
 #include <iostream>
 
 using namespace std;
@@ -17,6 +18,6 @@ int main()
   }
 
   cout << "main_263:" << endl;
-  main_263();
+  main264();
   return 0;
 }
