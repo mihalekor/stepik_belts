@@ -9,4 +9,7 @@ SOURCES += \
         wb261_uniq_str.cpp \
         wb262.cpp \
         wb263.cpp \
-        wb264.cpp
+        wb264.cpp \
+        wb310.cpp \
+        wb311sort.cpp \
+        wb312sort.cpp

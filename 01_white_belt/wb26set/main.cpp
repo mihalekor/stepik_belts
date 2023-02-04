@@ -3,6 +3,9 @@
 #include "wb262.cpp"
 #include "wb263.cpp"
 #include "wb264.cpp"
+#include "wb310.cpp"
+#include "wb311sort.cpp"
+#include "wb312sort.cpp"
 #include <iostream>
 
 using namespace std;
@@ -17,7 +20,7 @@ int main()
     cout << value << endl;
   }
 
-  cout << "main_263:" << endl;
-  main264();
+  cout << "main310:" << endl;
+  main312();
   return 0;
 }

@@ -33,7 +33,7 @@
 
 using namespace std;
 
-int main()
+int main264()
 {
   int count_bus = 0, cmd_n; //счётчик маршрутов, кол-во команд
   cin >> cmd_n;
