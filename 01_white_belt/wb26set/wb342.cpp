@@ -14,6 +14,11 @@ public:
     // добавить факт изменения имени на first_name в год year
     history[year].first = first_name;
     auto it = history.find(year);
+
+    //подгружаем предыдущий last_name
+    if (it != history.begin())
+      it->second.second = prev(it)->second.second;
+
     for (++it; it != history.end(); ++it)
       if (it->second.first.empty())
         it->second.first = first_name;
@@ -25,6 +30,11 @@ public:
     // добавить факт изменения фамилии на last_name в год year
     history[year].second = last_name;
     auto it = history.find(year);
+
+    //подгружаем предыдущий first_name
+    if (it != history.begin())
+      it->second.first = prev(it)->second.first;
+
     for (++it; it != history.end(); ++it)
       if (it->second.second.empty())
         it->second.second = last_name;
@@ -34,6 +44,15 @@ public:
   string GetFullName(int year)
   {
     // получить имя и фамилию по состоянию на конец года year
+
+    //плохая попытка подветси введёный год к ближайшему в истории
+    for (const auto &h : history)
+      if (year > h.first)
+        continue;
+      else if (year < h.first)
+      {
+      }
+
     if (history.count(year))
     {
       string first_name = history[year].first;
