@@ -12,4 +12,6 @@ SOURCES += \
         wb264.cpp \
         wb310.cpp \
         wb311sort.cpp \
-        wb312sort.cpp
+        wb312sort.cpp \
+        wb341class.cpp \
+        wb342.cpp

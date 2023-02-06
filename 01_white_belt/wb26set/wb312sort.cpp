@@ -40,7 +40,7 @@ a ab AaBbcCdd BB
 a A AA abc ABcd abCD abcd abs Bb BBB s
 */
 
-int main()
+int main312()
 {
   int n;
   vector<string> vector_n;
