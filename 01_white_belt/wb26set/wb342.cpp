@@ -10,6 +10,7 @@ using namespace std;
 //состояние first_name last_name в конкретном году, и что имено было измененно
 struct NameInfo
 {
+  // int year;
   string first_name = "", last_name = "";
   bool is_first = 0, is_last = 0;
 };
@@ -25,7 +26,7 @@ public:
     auto it = history.find(year);
 
     //подгружаем предыдущий last_name
-    if (it != history.begin())
+    if (it != history.begin() && !it->second.is_last)
       it->second.last_name = prev(it)->second.last_name;
 
     // проставляем first_name в будущем, если он еще не был ни разу изменён
@@ -42,8 +43,8 @@ public:
     history[year].is_last = true;
     auto it = history.find(year);
 
-    //подгружаем предыдущий first_name
-    if (it != history.begin())
+    //подгружаем предыдущий first_name если не первый и не меняется first_name в этом year
+    if (it != history.begin() && !it->second.is_first)
       it->second.first_name = prev(it)->second.first_name;
 
     // проставляем last_name в будущем, если он еще не был ни разу изменён
@@ -70,6 +71,11 @@ public:
         _year = year;
         break;
       }
+      if (year > prev(history.end())->first)
+      {
+        _year = prev(history.end())->first;
+        break;
+      }
       if (year > it->first)
         continue;
       else if (year < it->first)
@@ -83,17 +89,15 @@ public:
         }
       }
     }
-    if (_year == 0)
-      _year = prev(history.end())->first;
 
     string first_name = history[_year].first_name;
     string last_name = history[_year].last_name;
 
     if (!first_name.empty() && last_name.empty())
-      return first_name + " with unknown last name";
+      return first_name + " with unknown last name"; //" with unknown last name"
 
     else if (first_name.empty() && !last_name.empty())
-      return last_name + " with unknown first name";
+      return last_name + " with unknown first name"; //" with unknown first name"
 
     else
       return first_name + " " + last_name;

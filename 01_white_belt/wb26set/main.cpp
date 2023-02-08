@@ -9,6 +9,7 @@
 #include "wb341class.cpp"
 #include "wb342.cpp"
 
+#include <algorithm>
 #include <iostream>
 
 using namespace std;
@@ -96,7 +97,7 @@ int main_wb341class()
   return 0;
 }
 
-int main()
+int main342_02()
 {
   Person person;
   cout << "1111111111111111111111111111" << endl;
@@ -129,7 +130,7 @@ int main()
   return 0;
 }
 
-int main_()
+int main342_01()
 {
   Person person;
 
@@ -150,6 +151,70 @@ int main_()
   for (int year : {1969, 1970})
   {
     cout << person.GetFullName(year) << endl;
+  }
+
+  return 0;
+}
+
+// тестирование wb343: Задание по программированию «Имена и фамилии — 1»
+int main()
+{
+  Person person;
+  int year = 0;
+
+  // years:   {1, 2, 3, 4}
+  // years:   {2, 3, 4, 1}
+  // years:   {3, 4, 1, 2}
+  // years:   {4, 1, 2, 3}
+  // years:   {4, 3, 2, 1}
+  //------------------------------
+  // isFirst: {0, 0, 0, 0};
+  // isFirst: {1, 0, 0, 0};
+  // isFirst: {1, 1, 0, 0};
+  // isFirst: {1, 1, 1, 0};
+  // isFirst: {1, 1, 1, 1};
+  // isFirst: {0, 1, 1, 1};
+  // isFirst: {0, 0, 1, 1};
+  // isFirst: {0, 0, 0, 1};
+
+  // isFirst: {2, 0, 0, 1};
+  // isFirst: {2, 2, 2, 2}; + years:   {1, 2, 3, 4} - здесь нашлась ошибка
+  // isFirst: {0, 2, 0, 1};
+  // isFirst: {0, 0, 2, 1};
+
+  vector<int> years = {1, 2, 3, 4};   //какие года вставляем
+  vector<int> isFirst = {1, 2, 0, 2}; //вставляем 1-имя 2-фамилию 2-имя и фамилию
+
+  for (int i = 0; i < years.size(); ++i)
+  {
+    //ввод
+    if (isFirst[i] == 1) //вставка имени
+    {
+      std::cout << "insert: " << years[i] << "f\n";
+      person.ChangeFirstName(years[i], std::to_string(years[i]) + "f");
+    }
+    else if (isFirst[i] == 0) //вставка фамили
+    {
+      std::cout << "insert: " << years[i] << "s\n";
+      person.ChangeLastName(years[i], std::to_string(years[i]) + "s");
+    }
+    else if (isFirst[i] == 2) //вставка имени и фамили
+    {
+      std::cout << "insert: " << years[i] << "f+s\n";
+      person.ChangeFirstName(years[i], std::to_string(years[i]) + "f");
+      person.ChangeLastName(years[i], std::to_string(years[i]) + "s");
+    }
+    //---------------------------------------------------------------------------------
+    //вывод
+    std::cout << *min_element(years.cbegin(), years.cend()) - 1 << ":"
+              << person.GetFullName(*min_element(years.cbegin(), years.cend()) - 1) << "  ";
+
+    for (int i = 0; i < years.size(); ++i)
+      std::cout << years[i] << ":" << person.GetFullName(years[i]) << "  ";
+
+    std::cout << *max_element(years.cbegin(), years.cend()) + 1 << ":"
+              << person.GetFullName(*max_element(years.cbegin(), years.cend()) + 1);
+    cout << endl;
   }
 
   return 0;
