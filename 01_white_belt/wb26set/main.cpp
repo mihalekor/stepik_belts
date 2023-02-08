@@ -7,7 +7,7 @@
 #include "wb311sort.cpp"
 #include "wb312sort.cpp"
 #include "wb341class.cpp"
-#include "wb342.cpp"
+#include "wb343.cpp"
 
 #include <algorithm>
 #include <iostream>
@@ -97,7 +97,7 @@ int main_wb341class()
   return 0;
 }
 
-int main342_02()
+int main343_02()
 {
   Person person;
   cout << "1111111111111111111111111111" << endl;
@@ -130,7 +130,7 @@ int main342_02()
   return 0;
 }
 
-int main342_01()
+int main343_01()
 {
   Person person;
 
