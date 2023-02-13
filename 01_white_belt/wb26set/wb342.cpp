@@ -18,7 +18,7 @@ struct NameInfo
   bool is_first = 0, is_last = 0;
 };
 
-string make_brackets(vector<string> vectS)
+string make_brackets(const vector<string> &vectS)
 {
   if (vectS.empty())
     return "";
@@ -45,6 +45,18 @@ string make_brackets(vector<string> vectS)
   return res;
 }
 
+string BuildFullName(string first_name, string last_name)
+{
+
+  if (first_name.empty() && last_name.empty())
+    return "Incognito";
+  else if (last_name.empty())
+    return first_name + " with unknown last name"; //" with unknown last name"
+  else if (first_name.empty())
+    return last_name + " with unknown first name"; //" with unknown first name"
+  else
+    return first_name + " " + last_name;
+}
 class Person
 {
 public:
@@ -114,28 +126,25 @@ public:
   string GetFullNameWithHistory(int year)
   {
     // получить все имена и фамилии по состоянию на конец года year
-    vector<string> first_name;
-    vector<string> last_name;
+    vector<string> all_first;
+    vector<string> all_last;
 
+    // перебираем всю историю в хронологическом порядке
     for (auto it = history.begin(); it != history.end(); ++it)
     {
       if (it->first <= year)
       {
         if (it->second.is_first)
-          first_name.push_back(it->second.first_name);
+          all_first.push_back(it->second.first_name);
         if (it->second.is_last)
-          last_name.push_back(it->second.last_name);
+          all_last.push_back(it->second.last_name);
       }
     }
 
-    if (first_name.empty() && last_name.empty())
-      return "Incognito";
-    else if (last_name.empty())
-      return make_brackets(first_name) + " with unknown last name"; //" with unknown last name"
-    else if (first_name.empty())
-      return make_brackets(last_name) + " with unknown first name"; //" with unknown first name"
-    else
-      return make_brackets(first_name) + " " + make_brackets(last_name);
+    const string first_names = make_brackets(all_first);
+    const string last_names = make_brackets(all_last);
+
+    return BuildFullName(first_names, last_names);
   }
 
 private:
