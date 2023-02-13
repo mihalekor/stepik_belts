@@ -1,4 +1,5 @@
-/*3.4 - 3 задача
+/*3.4 Введение в структуры и классы. Часть 2
+ * Задача - 2
  * Задание по программированию «Имена и фамилии — 1»
 Реализуйте класс для человека, поддерживающий историю изменений человеком своих фамилии и имени.
 https://stepik.org/lesson/284812/step/5?auth=login&unit=266156
@@ -6,6 +7,7 @@ https://stepik.org/lesson/284812/step/5?auth=login&unit=266156
 
 #include <map>
 #include <string>
+#include <vector>
 using namespace std;
 
 //состояние first_name last_name в конкретном году, и что имено было измененно
@@ -15,6 +17,33 @@ struct NameInfo
   string first_name = "", last_name = "";
   bool is_first = 0, is_last = 0;
 };
+
+string make_brackets(vector<string> vectS)
+{
+  if (vectS.empty())
+    return "";
+  string res;
+  bool isOpen = false;
+  int i_last = vectS.size() - 1;
+
+  res += vectS[i_last];
+  for (int i = i_last - 1; i > -1; --i)
+  {
+    if (vectS[i] != vectS[i + 1])
+    {
+      if (!isOpen)
+        res += " (", isOpen = true;
+      else
+        res += ", ";
+
+      res += vectS[i];
+
+      if (i == 0)
+        res += ")";
+    }
+  }
+  return res;
+}
 
 class Person
 {
@@ -59,49 +88,54 @@ public:
   {
     if (history.empty())
       return "Incognito";
+    string first_name;
+    string last_name;
 
-    int _year = 0;
-    // cout << year << ": ";
-    //  получить имя и фамилию по состоянию на конец года year
+    for (auto &h : history)
+    {
+      if (h.first <= year)
+      {
+        first_name = h.second.first_name;
+        last_name = h.second.last_name;
+      }
+      else
+        break;
+    }
+    if (first_name.empty() && last_name.empty())
+      return "Incognito";
+    else if (last_name.empty())
+      return first_name + " with unknown last name"; //" with unknown last name"
+    else if (first_name.empty())
+      return last_name + " with unknown first name"; //" with unknown first name"
+    else
+      return first_name + " " + last_name;
+  }
 
-    //попытка подветси введёный год к ближайшему в истории
+  string GetFullNameWithHistory(int year)
+  {
+    // получить все имена и фамилии по состоянию на конец года year
+    vector<string> first_name;
+    vector<string> last_name;
+
     for (auto it = history.begin(); it != history.end(); ++it)
     {
-      if (year == it->first)
+      if (it->first <= year)
       {
-        _year = year;
-        break;
-      }
-      if (year > prev(history.end())->first)
-      {
-        _year = prev(history.end())->first;
-        break;
-      }
-      if (year > it->first)
-        continue;
-      else if (year < it->first)
-      {
-        if (it == history.begin())
-          return "Incognito";
-        else
-        {
-          _year = prev(it)->first;
-          break;
-        }
+        if (it->second.is_first)
+          first_name.push_back(it->second.first_name);
+        if (it->second.is_last)
+          last_name.push_back(it->second.last_name);
       }
     }
 
-    string first_name = history[_year].first_name;
-    string last_name = history[_year].last_name;
-
-    if (!first_name.empty() && last_name.empty())
-      return first_name + " with unknown last name"; //" with unknown last name"
-
-    else if (first_name.empty() && !last_name.empty())
-      return last_name + " with unknown first name"; //" with unknown first name"
-
+    if (first_name.empty() && last_name.empty())
+      return "Incognito";
+    else if (last_name.empty())
+      return make_brackets(first_name) + " with unknown last name"; //" with unknown last name"
+    else if (first_name.empty())
+      return make_brackets(last_name) + " with unknown first name"; //" with unknown first name"
     else
-      return first_name + " " + last_name;
+      return make_brackets(first_name) + " " + make_brackets(last_name);
   }
 
 private:
