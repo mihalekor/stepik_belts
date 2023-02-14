@@ -45,7 +45,7 @@ string make_brackets(const vector<string> &vectS)
   return res;
 }
 
-string BuildFullName(string first_name, string last_name)
+string BuildFullName(const string &first_name, const string &last_name)
 {
 
   if (first_name.empty() && last_name.empty())

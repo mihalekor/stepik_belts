@@ -8,6 +8,7 @@
 #include "wb312sort.cpp"
 #include "wb341class.cpp"
 #include "wb342.cpp"
+#include "wb361constructor.cpp"
 
 #include <algorithm>
 #include <iostream>
@@ -345,7 +346,7 @@ int main343()
   return 0;
 }
 
-int main()
+int main343_2() // подсказка для теста 5/5
 {
 
   Person person;
@@ -379,6 +380,26 @@ int main()
   std::cout << "year: " << year << '\n';
 
   std::cout << person.GetFullNameWithHistory(year) << '\n';
+
+  return 0;
+}
+
+//--------------------------------------------------------------
+// 3.6 Конструкторы
+//Задание "Строка"
+int main()
+{
+  ReversibleString s("live");
+  s.Reverse();
+  cout << s.ToString() << endl;
+
+  s.Reverse();
+  const ReversibleString &s_ref = s;
+  string tmp = s_ref.ToString();
+  cout << tmp << endl;
+
+  ReversibleString empty;
+  cout << '"' << empty.ToString() << '"' << endl;
 
   return 0;
 }
