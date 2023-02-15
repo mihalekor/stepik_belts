@@ -9,7 +9,6 @@ https://stepik.org/lesson/284812/step/5?auth=login&unit=266156
 #include <string>
 #include <vector>
 using namespace std;
-
 //состояние first_name last_name в конкретном году, и что имено было измененно
 struct NameInfo
 {

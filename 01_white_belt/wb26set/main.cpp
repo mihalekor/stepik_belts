@@ -7,8 +7,9 @@
 #include "wb311sort.cpp"
 #include "wb312sort.cpp"
 #include "wb341class.cpp"
-#include "wb342.cpp"
+#include "wb342person.cpp"
 #include "wb361constructor.cpp"
+#include "wb362person_construct.cpp"
 
 #include <algorithm>
 #include <iostream>
@@ -102,7 +103,7 @@ int main_wb341class()
 /*342----------------------------------------------------------------*/
 int main342_02()
 {
-  Person person;
+  wb342::Person person;
   cout << "1111111111111111111111111111" << endl;
   person.ChangeFirstName(1970, "Appolinaria");
   for (int year : {1969, 1970, 1971})
@@ -136,7 +137,7 @@ int main342_02()
 //
 int main_defolt()
 {
-  Person person;
+  wb342::Person person;
 
   person.ChangeFirstName(1965, "Polina");
   person.ChangeLastName(1967, "Sergeeva");
@@ -163,7 +164,7 @@ int main_defolt()
 // тестирование wb343: Задание по программированию «Имена и фамилии — 1»
 int main342_3()
 {
-  Person person;
+  wb342::Person person;
   int year = 0;
 
   // years:   {1, 2, 3, 4}
@@ -228,7 +229,7 @@ int main342_3()
 
 int main343_def1()
 {
-  Person person;
+  wb342::Person person;
 
   person.ChangeFirstName(1900, "Eugene");
   person.ChangeLastName(1900, "Sokolov");
@@ -242,7 +243,7 @@ int main343_def1()
 
 int main343_def2()
 {
-  Person person;
+  wb342::Person person;
 
   person.ChangeFirstName(1965, "Polina");
   person.ChangeLastName(1967, "Sergeeva");
@@ -285,7 +286,7 @@ int main343_def2()
 // 343 Задание по программированию «Имена и фамилии — 2»
 int main343()
 {
-  Person person;
+  wb342::Person person;
   int year = 0;
 
   // years:   {1, 2, 3, 4}
@@ -349,7 +350,7 @@ int main343()
 int main343_2() // подсказка для теста 5/5
 {
 
-  Person person;
+  wb342::Person person;
 
   int year = 1;
 
@@ -386,7 +387,7 @@ int main343_2() // подсказка для теста 5/5
 
 //--------------------------------------------------------------
 // 3.6 Конструкторы
-//Задание "Строка"
+// 1 - Задание "Строка"
 int main()
 {
   ReversibleString s("live");
@@ -403,3 +404,24 @@ int main()
 
   return 0;
 }
+//--------------------------------------------------------------
+// 3.6 Задание по программированию «Имена и фамилии — 3»
+// 2 - Задание "Строка"
+/*int main()
+{
+  Person person("Polina", "Sergeeva", 1960);
+  for (int year : {1959, 1960})
+  {
+    cout << person.GetFullNameWithHistory(year) << endl;
+  }
+
+  person.ChangeFirstName(1965, "Appolinaria");
+  person.ChangeLastName(1967, "Ivanova");
+  for (int year : {1965, 1967})
+  {
+    cout << person.GetFullNameWithHistory(year) << endl;
+  }
+
+  return 0;
+}
+*/
