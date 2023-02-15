@@ -9,6 +9,7 @@ https://stepik.org/lesson/284812/step/5?auth=login&unit=266156
 #include <string>
 #include <vector>
 using namespace std;
+
 //состояние first_name last_name в конкретном году, и что имено было измененно
 struct NameInfo
 {
@@ -48,7 +49,7 @@ string BuildFullName(const string &first_name, const string &last_name)
 {
 
   if (first_name.empty() && last_name.empty())
-    return "Incognito";
+    return "No person";
   else if (last_name.empty())
     return first_name + " with unknown last name"; //" with unknown last name"
   else if (first_name.empty())
@@ -59,8 +60,15 @@ string BuildFullName(const string &first_name, const string &last_name)
 class Person
 {
 public:
+  Person(string first, string last, int year)
+  {
+    ChangeFirstName(year, first);
+    ChangeLastName(year, last);
+  }
   void ChangeFirstName(int year, const string &first_name)
   {
+    if (year < history.begin()->first)
+      return;
     // добавить факт изменения имени на first_name в год year
     history[year].first_name = first_name;
     history[year].is_first = true;
@@ -79,6 +87,8 @@ public:
   }
   void ChangeLastName(int year, const string &last_name)
   {
+    if (year < history.begin()->first)
+      return;
     // добавить факт изменения фамилии на last_name в год year
     history[year].last_name = last_name;
     history[year].is_last = true;
@@ -95,12 +105,9 @@ public:
       else
         break;
   }
-  string GetFullName(int year)
+  string GetFullName(int year) const
   {
-    if (history.empty())
-      return "Incognito";
-    string first_name;
-    string last_name;
+    string first_name, last_name;
 
     for (auto &h : history)
     {
@@ -112,21 +119,14 @@ public:
       else
         break;
     }
-    if (first_name.empty() && last_name.empty())
-      return "Incognito";
-    else if (last_name.empty())
-      return first_name + " with unknown last name"; //" with unknown last name"
-    else if (first_name.empty())
-      return last_name + " with unknown first name"; //" with unknown first name"
-    else
-      return first_name + " " + last_name;
+
+    return BuildFullName(first_name, last_name);
   }
 
-  string GetFullNameWithHistory(int year)
+  string GetFullNameWithHistory(int year) const
   {
     // получить все имена и фамилии по состоянию на конец года year
-    vector<string> all_first;
-    vector<string> all_last;
+    vector<string> all_first, all_last;
 
     // перебираем всю историю в хронологическом порядке
     for (auto it = history.begin(); it != history.end(); ++it)
