@@ -16,4 +16,5 @@ SOURCES += \
         wb341class.cpp \
         wb342person.cpp \
         wb361constructor.cpp \
-        wb362person_construct.cpp
+        wb362person_construct.cpp \
+        wb363.cpp

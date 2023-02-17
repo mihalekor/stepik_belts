@@ -10,6 +10,7 @@
 #include "wb342person.cpp"
 #include "wb361constructor.cpp"
 #include "wb362person_construct.cpp"
+#include "wb363.cpp"
 
 #include <algorithm>
 #include <iostream>
@@ -406,8 +407,8 @@ int main361()
 }
 //--------------------------------------------------------------
 // 3.6 Задание по программированию «Имена и фамилии — 3»
-// 2 - Задание "Строка"
-int main()
+// 2 - Задание
+int main362()
 {
   Person person("Polina", "Sergeeva", 1960);
   for (int year : {1959, 1960})
@@ -422,5 +423,15 @@ int main()
     cout << person.GetFullNameWithHistory(year) << endl;
   }
 
+  return 0;
+}
+
+int main()
+{
+  Incognizable a;
+  Incognizable b = {};
+  Incognizable c = {0};
+  Incognizable d = {0, 1};
+  Incognizable a();
   return 0;
 }
