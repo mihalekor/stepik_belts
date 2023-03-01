@@ -12,6 +12,7 @@
 #include "wb362person_construct.cpp"
 #include "wb363.cpp"
 #include "wb411LectureTitle.cpp"
+#include "wb412ImageWeight.cpp"
 
 #include <algorithm>
 #include <iostream>
@@ -432,12 +433,12 @@ int main363()
   Incognizable a;
   Incognizable b = {};
   Incognizable c = {0};
-  Incognizable d = {0, 1};
+  Incognizable d = {0, 111};
   Incognizable e();
   return 0;
 }
 
-int main()
+int main411()
 {
   LectureTitle title(Specialization("C++"), Course("White belt"), Week("4th"));
 
@@ -453,5 +454,19 @@ int main()
 
   // LectureTitle title6(Specialization("C++"), Week("4th"), Course("White belt"));
 
+  return 0;
+}
+
+/*
+4.1 Структуры и классы: примеры
+Задача 2
+Задание по программированию «Обратимая функция»
+*/
+int main()
+{
+  Image image = {10, 2, 6};
+  Params params = {4, 2, 6};
+  cout << ComputeImageWeight(params, image) << endl;
+  cout << ComputeQualityByWeight(params, image, 46) << endl;
   return 0;
 }
