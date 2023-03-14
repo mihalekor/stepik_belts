@@ -60,7 +60,7 @@ int main() {
 #include <vector>
 using namespace std;
 
-struct Image
+/*struct Image
 {
   double quality;
   double freshness;
@@ -72,7 +72,7 @@ struct Params
   double a;
   double b;
   double c;
-};
+};*/
 class FuctionPart
 {
 public:
@@ -84,8 +84,8 @@ public:
 class Function
 {
 public:
-  void AddPart(char operation, double operand) { parts.push_back({operation, operand}); };
-  double Apply(double source_value)
+  void AddPart(char operation, double operand) { parts.push_back({operation, operand}); }
+  double Apply(double source_value) const
   {
 
     for (auto i : parts)
@@ -95,12 +95,21 @@ public:
         source_value -= i._operand;
     return source_value;
   };
-  void Invert(){};
+  void Invert()
+  {
+    for (auto &i : parts)
+      if (i._operation == '+')
+        i._operation = '-';
+      else
+        i._operation = '+';
+
+    reverse(begin(parts), end(parts));
+  };
 
 private:
   vector<FuctionPart> parts;
 };
-
+/*
 Function MakeWeightFunction(const Params &params, const Image &image)
 {
   Function function;
@@ -120,4 +129,4 @@ double ComputeQualityByWeight(const Params &params, const Image &image, double w
   Function function = MakeWeightFunction(params, image);
   function.Invert();
   return function.Apply(weight);
-}
+}*/
