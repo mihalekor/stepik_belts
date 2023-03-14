@@ -464,9 +464,9 @@ int main411()
 */
 int main()
 {
-  Image image = {10, 2, 6};
-  Params params = {4, 2, 6};
-  cout << ComputeImageWeight(params, image) << endl;
-  cout << ComputeQualityByWeight(params, image, 46) << endl;
+  wb412::Image image = {10, 2, 6};
+  wb412::Params params = {4, 2, 6};
+  cout << wb412::ComputeImageWeight(params, image) << endl;
+  cout << wb412::ComputeQualityByWeight(params, image, 46) << endl;
   return 0;
 }

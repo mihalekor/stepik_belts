@@ -60,19 +60,6 @@ int main() {
 #include <vector>
 using namespace std;
 
-/*struct Image
-{
-  double quality;
-  double freshness;
-  double rating;
-};
-
-struct Params
-{
-  double a;
-  double b;
-  double c;
-};*/
 class FuctionPart
 {
 public:
@@ -109,7 +96,24 @@ public:
 private:
   vector<FuctionPart> parts;
 };
-/*
+
+namespace wb412
+{
+
+struct Image
+{
+  double quality;
+  double freshness;
+  double rating;
+};
+
+struct Params
+{
+  double a;
+  double b;
+  double c;
+};
+
 Function MakeWeightFunction(const Params &params, const Image &image)
 {
   Function function;
@@ -129,4 +133,5 @@ double ComputeQualityByWeight(const Params &params, const Image &image, double w
   Function function = MakeWeightFunction(params, image);
   function.Invert();
   return function.Apply(weight);
-}*/
+}
+} // namespace wb412
