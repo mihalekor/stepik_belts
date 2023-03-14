@@ -66,7 +66,22 @@ public:
   char _operation;
   double _operand;
 
-  FuctionPart(char operation, double operand) : _operation(operation), _operand(operand){};
+  FuctionPart(char operation, double operand) : _operation(operation), _operand(operand) {}
+  double Apply(double source_value) const
+  {
+    if (_operation == '+')
+      return source_value + _operand;
+    else
+      return source_value - _operand;
+  }
+
+  void Invert()
+  {
+    if (_operation == '+')
+      _operation = '-';
+    else
+      _operation = '+';
+  }
 };
 class Function
 {
@@ -76,22 +91,16 @@ public:
   {
 
     for (auto i : parts)
-      if (i._operation == '+')
-        source_value += i._operand;
-      else
-        source_value -= i._operand;
+      source_value = i.Apply(source_value);
     return source_value;
   };
   void Invert()
   {
     for (auto &i : parts)
-      if (i._operation == '+')
-        i._operation = '-';
-      else
-        i._operation = '+';
+      i.Invert();
 
     reverse(begin(parts), end(parts));
-  };
+  }
 
 private:
   vector<FuctionPart> parts;
