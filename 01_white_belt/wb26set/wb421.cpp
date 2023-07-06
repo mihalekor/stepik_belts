@@ -17,19 +17,18 @@
 #include <iostream>
 #include <string>
 using namespace std;
-int main_421() //+422
+int main_421()  //+422
 {
-  ifstream ins("input.txt");
-  ofstream outs("output.txt");
-  if (ins.is_open()) {
-    string line;
-    while (getline(ins, line))
-      cout << line << '\n'; // outs
-  } else {
-    cout << "error!" << endl;
-  }
+    ifstream ins("input.txt");
+    ofstream outs("output.txt");
+    if (ins.is_open()) {
+        string line;
+        while (getline(ins, line)) cout << line << '\n';  // outs
+    } else {
+        cout << "error!" << endl;
+    }
 
-  return 0;
+    return 0;
 }
 
 /*Задание 3 по программированию «Вывод с точностью»
@@ -39,20 +38,20 @@ int main_421() //+422
 но сделайте так, чтобы у каждого из них было ровно три знака после десятичной
 точки.*/
 
-int main_423() //
+int main_423()  //
 {
-  ifstream ins("input.txt");
-  ofstream outs("output.txt");
-  if (ins.is_open()) {
-    string line;
-    float n;
-    while (ins >> n) // считываем до первого не float
-      cout << fixed << setprecision(3) << n << '\n'; // cout
-  } else {
-    cout << "error!" << endl;
-  }
+    ifstream ins("input.txt");
+    ofstream outs("output.txt");
+    if (ins.is_open()) {
+        string line;
+        float n;
+        while (ins >> n)  // считываем до первого не float
+            cout << fixed << setprecision(3) << n << '\n';  // cout
+    } else {
+        cout << "error!" << endl;
+    }
 
-  return 0;
+    return 0;
 }
 
 /*Задание 4 по программированию «Чтение и вывод таблицы»
@@ -74,5 +73,30 @@ int main_423() //
 в таблице будет ровно N строк и M столбцов, значение каждой из ячеек — целое
 число.*/
 
-int main_424() //
-{}
+int main()  //_424
+{
+    ifstream ins("input.txt");
+    if (ins) {
+        string line;
+        int value, row, column, i = 0;
+        ins >> row;
+        ins.ignore(1);
+        ins >> column;
+        while (ins >> value)  // считываем до первого не float
+        {
+            ++i;
+            cout << setw(10) << value;
+            if (i % column == 0) {  // если последняя ячейка в строке
+                if (i >= row * column)  // если последняя ячейка в строке и в таблице
+                    break;
+                cout << '\n';
+            } else
+                cout << ' ';
+            ins.ignore(1);
+        }
+    } else {
+        cout << "error!" << endl;
+    }
+
+    return 0;
+}
