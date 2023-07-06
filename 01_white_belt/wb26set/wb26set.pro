@@ -19,4 +19,5 @@ SOURCES += \
         wb362person_construct.cpp \
         wb363.cpp \
         wb411LectureTitle.cpp \
-        wb412ImageWeight.cpp
+        wb412ImageWeight.cpp \
+        wb421.cpp
