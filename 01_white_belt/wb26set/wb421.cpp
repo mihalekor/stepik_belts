@@ -16,6 +16,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 int main_421()  //+422
 {
@@ -73,7 +74,7 @@ int main_423()  //
 в таблице будет ровно N строк и M столбцов, значение каждой из ячеек — целое
 число.*/
 
-int main()  //_424
+int main_424()  //
 {
     ifstream ins("input.txt");
     if (ins) {
@@ -96,6 +97,96 @@ int main()  //_424
         }
     } else {
         cout << "error!" << endl;
+    }
+
+    return 0;
+}
+
+/*
+Задание по программированию «Список студентов»
+
+Определите структуру «Студент» со следующими полями: имя, фамилия, день, месяц и год рождения.
+Создайте вектор из таких структур, заполните его из входных данных и затем по запросам выведите
+нужные поля.
+
+Формат ввода
+
+Первая строка содержит одно целое число N от 0 до 10000 — число студентов.
+
+Далее идут N строк, каждая из которых содержит две строки длиной от 1 до 15 символов — имя и фамилию
+очередного студента, и три целых числа от 0 до 1000000000 — день, месяц и год рождения.
+
+Следующая строка содержит одно целое число M от 0 до 10000 — число запросов.
+
+Следующие M строк содержат строку длиной от 1 до 15 символов — запрос, и целое число от 0 до
+1000000000 — номер студента (нумерация начинается с 1).
+
+Формат вывода
+
+Для запроса вида name K, где K от 1 до N, выведите через пробел имя и фамилию K-го студента.
+
+Для запроса вида date K, где K от 1 до N, выведите через точку день, месяц и год рождения K-го
+студента.
+
+Для остальных запросов выведите bad request.
+*/
+
+struct Student
+{
+    string name;
+    string sName;
+    int d;
+    int m;
+    int y;
+};
+
+int main_425()  //
+{
+    int k_cin;
+
+    cin >> k_cin;
+
+    if (k_cin < 1 || k_cin > 1)
+        return 0;
+
+    vector<Student> vecStu(k_cin);
+
+    for (int var = 0; var < vecStu.size(); ++var) {
+        cin >> vecStu[var].name >> vecStu[var].sName >> vecStu[var].d >> vecStu[var].m
+            >> vecStu[var].y;
+    }
+
+    cin >> k_cin;
+    if (k_cin < 1 || k_cin > 1000)
+        return 0;
+
+    string cmd;
+    string sud_id_s;
+
+    for (int i = 0; i < k_cin; ++i) {
+        cin >> cmd >> sud_id_s;
+
+        if (sud_id_s.find(".") != std::string::npos || sud_id_s.find(",") != std::string::npos) {
+            cout << "bad request" << endl;
+            continue;
+        }
+
+        int sud_id = stoi(sud_id_s);
+
+        if (sud_id < 1 || sud_id > vecStu.size()) {
+            cout << "bad request" << endl;
+            continue;
+        }
+
+        --sud_id;
+
+        if (cmd == "name") {
+            cout << vecStu[sud_id].name << " " << vecStu[sud_id].sName << endl;
+        } else if (cmd == "date") {
+            cout << vecStu[sud_id].d << "." << vecStu[sud_id].m << "." << vecStu[sud_id].y << endl;
+        } else {
+            cout << "bad request" << endl;
+        }
     }
 
     return 0;
