@@ -20,16 +20,16 @@
 using namespace std;
 int main_421()  //+422
 {
-    ifstream ins("input.txt");
-    ofstream outs("output.txt");
-    if (ins.is_open()) {
-        string line;
-        while (getline(ins, line)) cout << line << '\n';  // outs
-    } else {
-        cout << "error!" << endl;
-    }
+	ifstream ins("input.txt");
+	ofstream outs("output.txt");
+	if (ins.is_open()) {
+		string line;
+		while (getline(ins, line)) cout << line << '\n';  // outs
+	} else {
+		cout << "error!" << endl;
+	}
 
-    return 0;
+	return 0;
 }
 
 /*Задание 3 по программированию «Вывод с точностью»
@@ -41,18 +41,18 @@ int main_421()  //+422
 
 int main_423()  //
 {
-    ifstream ins("input.txt");
-    ofstream outs("output.txt");
-    if (ins.is_open()) {
-        string line;
-        float n;
-        while (ins >> n)  // считываем до первого не float
-            cout << fixed << setprecision(3) << n << '\n';  // cout
-    } else {
-        cout << "error!" << endl;
-    }
+	ifstream ins("input.txt");
+	ofstream outs("output.txt");
+	if (ins.is_open()) {
+		string line;
+		float n;
+		while (ins >> n)  // считываем до первого не float
+			cout << fixed << setprecision(3) << n << '\n';  // cout
+	} else {
+		cout << "error!" << endl;
+	}
 
-    return 0;
+	return 0;
 }
 
 /*Задание 4 по программированию «Чтение и вывод таблицы»
@@ -76,30 +76,30 @@ int main_423()  //
 
 int main_424()  //
 {
-    ifstream ins("input.txt");
-    if (ins) {
-        string line;
-        int value, row, column, i = 0;
-        ins >> row;
-        ins.ignore(1);
-        ins >> column;
-        while (ins >> value)  // считываем до первого не float
-        {
-            ++i;
-            cout << setw(10) << value;
-            if (i % column == 0) {  // если последняя ячейка в строке
-                if (i >= row * column)  // если последняя ячейка в строке и в таблице
-                    break;
-                cout << '\n';
-            } else
-                cout << ' ';
-            ins.ignore(1);
-        }
-    } else {
-        cout << "error!" << endl;
-    }
+	ifstream ins("input.txt");
+	if (ins) {
+		string line;
+		int value, row, column, i = 0;
+		ins >> row;
+		ins.ignore(1);
+		ins >> column;
+		while (ins >> value)  // считываем до первого не float
+		{
+			++i;
+			cout << setw(10) << value;
+			if (i % column == 0) {  // если последняя ячейка в строке
+				if (i >= row * column)  // если последняя ячейка в строке и в таблице
+					break;
+				cout << '\n';
+			} else
+				cout << ' ';
+			ins.ignore(1);
+		}
+	} else {
+		cout << "error!" << endl;
+	}
 
-    return 0;
+	return 0;
 }
 
 /*
@@ -133,61 +133,61 @@ int main_424()  //
 
 struct Student
 {
-    string name;
-    string sName;
-    int d;
-    int m;
-    int y;
+	string name;
+	string sName;
+	int d;
+	int m;
+	int y;
 };
 
-int main_425()  //
+int main()  //_425
 {
-    int k_cin;
+	int k_cin;
 
-    cin >> k_cin;
+	cin >> k_cin;
 
-    if (k_cin < 1 || k_cin > 1)
-        return 0;
+	if (k_cin < 1 || k_cin > 10000)
+		return 0;
 
-    vector<Student> vecStu(k_cin);
+	vector<Student> vecStu(k_cin);
 
-    for (int var = 0; var < vecStu.size(); ++var) {
-        cin >> vecStu[var].name >> vecStu[var].sName >> vecStu[var].d >> vecStu[var].m
-            >> vecStu[var].y;
-    }
+	for (int var = 0; var < vecStu.size(); ++var) {
+		cin >> vecStu[var].name >> vecStu[var].sName >> vecStu[var].d >> vecStu[var].m
+			>> vecStu[var].y;
+	}
 
-    cin >> k_cin;
-    if (k_cin < 1 || k_cin > 1000)
-        return 0;
+	cin >> k_cin;
+	if (k_cin < 1 || k_cin > 10000)
+		return 0;
 
-    string cmd;
-    string sud_id_s;
+	string cmd;
+	string sud_id_s;
 
-    for (int i = 0; i < k_cin; ++i) {
-        cin >> cmd >> sud_id_s;
+	for (int i = 0; i < k_cin; ++i) {
+		cin >> cmd >> sud_id_s;
 
-        if (sud_id_s.find(".") != std::string::npos || sud_id_s.find(",") != std::string::npos) {
-            cout << "bad request" << endl;
-            continue;
-        }
+		if (sud_id_s.find(".") != std::string::npos || sud_id_s.find(",") != std::string::npos) {
+			cout << "bad request" << endl;
+			continue;
+		}
 
-        int sud_id = stoi(sud_id_s);
+		int sud_id = stoi(sud_id_s);
 
-        if (sud_id < 1 || sud_id > vecStu.size()) {
-            cout << "bad request" << endl;
-            continue;
-        }
+		if (sud_id < 1 || sud_id > vecStu.size()) {
+			cout << "bad request" << endl;
+			continue;
+		}
 
-        --sud_id;
+		--sud_id;
 
-        if (cmd == "name") {
-            cout << vecStu[sud_id].name << " " << vecStu[sud_id].sName << endl;
-        } else if (cmd == "date") {
-            cout << vecStu[sud_id].d << "." << vecStu[sud_id].m << "." << vecStu[sud_id].y << endl;
-        } else {
-            cout << "bad request" << endl;
-        }
-    }
+		if (cmd == "name") {
+			cout << vecStu[sud_id].name << " " << vecStu[sud_id].sName << endl;
+		} else if (cmd == "date") {
+			cout << vecStu[sud_id].d << "." << vecStu[sud_id].m << "." << vecStu[sud_id].y << endl;
+		} else {
+			cout << "bad request" << endl;
+		}
+	}
 
-    return 0;
+	return 0;
 }
